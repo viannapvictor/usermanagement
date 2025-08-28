@@ -1,6 +1,6 @@
 package br.com.infnet.edur.usermanagement.utils.exceptions;
 
-import br.com.infnet.edur.usermanagement.dto.APIResponse;
+import br.com.infnet.edur.usermanagement.dto.reponse.APIResponse;
 import br.com.infnet.edur.usermanagement.utils.messages.ErrorMessages;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

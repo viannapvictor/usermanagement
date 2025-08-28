@@ -1,6 +1,6 @@
 package br.com.infnet.edur.usermanagement.controller;
 
-import br.com.infnet.edur.usermanagement.dto.APIResponse;
+import br.com.infnet.edur.usermanagement.dto.reponse.APIResponse;
 import br.com.infnet.edur.usermanagement.service.UserService;
 import br.com.infnet.edur.usermanagement.model.User;
 import jakarta.validation.Valid;
