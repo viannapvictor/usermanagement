@@ -36,8 +36,7 @@ public class GlobalExceptionHandler {
             errors.put(fieldName, errorMessage);
         });
         
-        APIResponse<Object> response = APIResponse.error(ErrorMessages.VALIDATION_ERROR.getMessage(), HttpStatus.BAD_REQUEST.value());
-        response.setData(errors);
+        APIResponse<Object> response = new APIResponse<>(false, errors, HttpStatus.BAD_REQUEST.value(), ErrorMessages.VALIDATION_ERROR.getMessage());
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
     

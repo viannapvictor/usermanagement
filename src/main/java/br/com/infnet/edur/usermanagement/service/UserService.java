@@ -48,36 +48,15 @@ public class UserService {
             throw new UserAlreadyExistsException("phone number", user.getPhoneNumber());
         }
         
-        user.setId(id);
-        return userRepository.save(user);
-    }
-
-    public User partialUpdateUser(Long id, User user) {
-        User existingUser = getUserById(id);
+        User updatedUser = User.builder()
+                .id(id)
+                .firstName(user.getFirstName())
+                .lastName(user.getLastName())
+                .email(user.getEmail())
+                .phoneNumber(user.getPhoneNumber())
+                .build();
         
-        if (user.getFirstName() != null) {
-            existingUser.setFirstName(user.getFirstName());
-        }
-        
-        if (user.getLastName() != null) {
-            existingUser.setLastName(user.getLastName());
-        }
-        
-        if (user.getEmail() != null) {
-            if (!existingUser.getEmail().equals(user.getEmail()) && existsByEmail(user.getEmail())) {
-                throw new UserAlreadyExistsException("email", user.getEmail());
-            }
-            existingUser.setEmail(user.getEmail());
-        }
-        
-        if (user.getPhoneNumber() != null) {
-            if (!existingUser.getPhoneNumber().equals(user.getPhoneNumber()) && existsByPhoneNumber(user.getPhoneNumber())) {
-                throw new UserAlreadyExistsException("phone number", user.getPhoneNumber());
-            }
-            existingUser.setPhoneNumber(user.getPhoneNumber());
-        }
-        
-        return userRepository.save(existingUser);
+        return userRepository.save(updatedUser);
     }
 
     public void deleteUser(Long id) {

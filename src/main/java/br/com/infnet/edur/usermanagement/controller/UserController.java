@@ -1,6 +1,7 @@
 package br.com.infnet.edur.usermanagement.controller;
 
 import br.com.infnet.edur.usermanagement.dto.reponse.APIResponse;
+import br.com.infnet.edur.usermanagement.dto.request.UserInputDTO;
 import br.com.infnet.edur.usermanagement.service.UserService;
 import br.com.infnet.edur.usermanagement.model.User;
 import jakarta.validation.Valid;
@@ -33,22 +34,19 @@ public class UserController {
     }
     
     @PostMapping
-    public ResponseEntity<APIResponse<User>> createUser(@Valid @RequestBody User user) {
+    public ResponseEntity<APIResponse<User>> createUser(@Valid @RequestBody UserInputDTO userInputDTO) {
+        User user = new User(userInputDTO.getFirstName(), userInputDTO.getLastName(), 
+                            userInputDTO.getEmail(), userInputDTO.getPhoneNumber());
         User createdUser = userService.createUser(user);
         APIResponse<User> response = APIResponse.success(createdUser, HttpStatus.CREATED.value());
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
     
     @PutMapping("/{id}")
-    public ResponseEntity<APIResponse<User>> updateUser(@PathVariable Long id, @Valid @RequestBody User user) {
+    public ResponseEntity<APIResponse<User>> updateUser(@PathVariable Long id, @Valid @RequestBody UserInputDTO userInputDTO) {
+        User user = new User(userInputDTO.getFirstName(), userInputDTO.getLastName(), 
+                            userInputDTO.getEmail(), userInputDTO.getPhoneNumber());
         User updatedUser = userService.updateUser(id, user);
-        APIResponse<User> response = APIResponse.success(updatedUser);
-        return ResponseEntity.ok(response);
-    }
-    
-    @PatchMapping("/{id}")
-    public ResponseEntity<APIResponse<User>> partialUpdateUser(@PathVariable Long id, @RequestBody User user) {
-        User updatedUser = userService.partialUpdateUser(id, user);
         APIResponse<User> response = APIResponse.success(updatedUser);
         return ResponseEntity.ok(response);
     }

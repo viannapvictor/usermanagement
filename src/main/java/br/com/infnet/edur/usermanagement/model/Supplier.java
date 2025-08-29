@@ -7,17 +7,16 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 
-@Entity(name = "User")
+@Entity(name = "Supplier")
 @Builder
-@Table(name = "users")
+@Table(name = "suppliers")
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class User {
+public class Supplier {
     
-    public User(String firstName, String lastName, String email, String phoneNumber) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public Supplier(String name, String email, String phoneNumber) {
+        this.name = name;
         this.email = email;
         this.phoneNumber = phoneNumber;
     }
@@ -26,17 +25,13 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @NotBlank(message = "First name is required")
-    @Column(name = "first_user_name")
-    private String firstName;
-    
-    @NotBlank(message = "Last name is required")
-    @Column(name = "last_user_name")
-    private String lastName;
+    @NotBlank(message = "Name is required")
+    @Column(name = "supplier_number", nullable = false)
+    private String name;
     
     @NotBlank(message = "Email is required")
     @Email(message = "Email should be valid")
-    @Pattern(regexp = "^[a-zA-Z0-9_!#$%&’*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$", message = "Email should be valid")
+    @Pattern(regexp = "^[a-zA-Z0-9_!#$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+$", message = "Email should be valid")
     @Column(name = "email", nullable = false, unique = true)
     private String email;
     
