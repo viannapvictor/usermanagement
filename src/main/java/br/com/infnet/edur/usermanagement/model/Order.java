@@ -1,6 +1,8 @@
 package br.com.infnet.edur.usermanagement.model;
 
 import lombok.*;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -31,6 +33,7 @@ public class Order {
     @NotNull(message = "Customer is required")
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id", nullable = false)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private Customer customer;
     
     @Column(name = "order_date", nullable = false)
@@ -38,6 +41,8 @@ public class Order {
     
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @Builder.Default
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @JsonManagedReference
     private List<OrderItem> orderItems = new ArrayList<>();
     
     public BigDecimal getTotalAmount() {
